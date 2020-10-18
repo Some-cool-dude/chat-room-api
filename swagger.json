@@ -109,7 +109,19 @@
             "description": "The message to create.",
             "required": false,
             "schema": {
-              "$ref": "#/definitions/Message"
+              "type": "object",
+              "required": [
+                "email",
+                "text"
+              ],
+              "properties": {
+                "email": {
+                  "type":"string"
+                },
+                "text": {
+                  "type":"string"
+                }
+              }
             }
           }
         ],
@@ -135,7 +147,7 @@
         "id": {
           "type": "string",
           "format": "ObjectId",
-          "example": "ObjectId(\"5f8c5a9f89faca31a6fd97f7\")"
+          "example": "5f8c5a9f89faca31a6fd97f7"
         },
         "email": {
           "type": "string",
