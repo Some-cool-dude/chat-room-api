@@ -1,0 +1,161 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This is a simple API",
+    "version": "1.0.0",
+    "title": "Simple Chat Room API",
+    "contact": {
+      "email": "you@your-company.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "basePath": "/api",
+  "tags": [
+    {
+      "name": "users",
+      "description": "Operations available to regular users"
+    }
+  ],
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "paths": {
+    "/messages/single/{id}": {
+      "get": {
+        "tags": [
+          "users"
+        ],
+        "summary": "get message by its id",
+        "description": "By passing in the url some id, you can find desire message.\n",
+        "operationId": "getMessage",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "message id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "desire message",
+            "schema": {
+              "$ref": "#/definitions/Message"
+            }
+          },
+          "404": {
+            "description": "wrong id"
+          }
+        }
+      }
+    },
+    "/messages/list/{page}": {
+      "get": {
+        "tags": [
+          "users"
+        ],
+        "summary": "get messages page by page",
+        "description": "By passing in the url some page, you can get 10 items of some page. The first page is 0, the second is 1, and so on.\n",
+        "operationId": "getPagedMessages",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "path",
+            "description": "desire page. The first page is 0.",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "desire messages of some page",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Message"
+              }
+            }
+          },
+          "404": {
+            "description": "wrong page. It should be positive number."
+          }
+        }
+      }
+    },
+    "/messages/new": {
+      "post": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Creates a new message.",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "message",
+            "description": "The message to create.",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/Message"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Invalid email, email already exist, empty email, empty text."
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Message": {
+      "type": "object",
+      "required": [
+        "email",
+        "text"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "ObjectId",
+          "example": "ObjectId(\"5f8c5a9f89faca31a6fd97f7\")"
+        },
+        "email": {
+          "type": "string",
+          "example": "test@example.com"
+        },
+        "text": {
+          "type": "string",
+          "example": "Some\nmultiline\ntext"
+        },
+        "createAt": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2016-08-29T09:12:33.001Z"
+        },
+        "updateAt": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2016-08-29T09:12:33.001Z"
+        }
+      }
+    }
+  }
+}
