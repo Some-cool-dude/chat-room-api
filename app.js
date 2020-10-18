@@ -70,6 +70,10 @@ app.post('/api/messages/new', (req, res) => {
     });
 });
 
+app.get('*', (req, res) => {
+    res.sendStatus(404);
+});
+
 app.listen(port, () => {
     console.log(`Server listening on ${port}`);
 });
