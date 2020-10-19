@@ -5,6 +5,8 @@ services:
         image: 0980121931/chat-room-api-image
         restart: always
         build: .
+        ports:
+            - "8080:8080"
         links:
             - mongo
     mongo:
