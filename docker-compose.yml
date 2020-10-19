@@ -9,7 +9,7 @@ services:
             - mongo
     mongo:
         container_name: mongo
-        image: 0980121931/mongo
+        image: mongo
         volumes:
         - ./data:/data/db
         command: mongod --noauth
